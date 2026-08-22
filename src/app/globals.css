@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #062B5F;
+  --color-brand-secondary: #00AEEF;
+  --color-brand-accent: #00B8A9;
+  --color-brand-green: #38A169;
+  --color-brand-bg: #F7FAFC;
+  --color-brand-white: #FFFFFF;
+  --color-brand-text: #0F172A;
+}
+
+:root {
+  --background: #F7FAFC;
+  --foreground: #0F172A;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #062B5F;
+    --foreground: #F7FAFC;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  @apply antialiased selection:bg-brand-secondary selection:text-white;
+}
+
+/* Animations and Utilities */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+}

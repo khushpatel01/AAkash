@@ -5,7 +5,7 @@ export const siteConfig = {
   contact: {
     email: process.env.CONTACT_EMAIL || "kpj050103@gmail.com",
     phone: "+91 98765 43210", // Placeholder
-    address: "123 Industrial Area, Phase 1, Mumbai, Maharashtra 400001, India", // Placeholder
+    address: "Shop No.3 , Opp.Animal Hospital,Brahmanwada ,Ta. Unjha, Dt. Mehsana, Gujarat, India 38410", // Placeholder
     workingHours: "Mon - Sat: 9:00 AM - 6:00 PM"
   },
   socialLinks: {

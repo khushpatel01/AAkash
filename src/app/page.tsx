@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, PlayCircle, Shield, Droplet, Cog, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
+import IndustryImage from "@/Images/Industry.png";
 import { solutions } from "@/data/solutions";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SolutionCard } from "@/components/ui/SolutionCard";
@@ -17,8 +18,8 @@ export default function Home() {
       <section className="relative h-[90vh] min-h-[600px] flex items-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src={images.hero.url}
-            alt={images.hero.alt}
+            src={IndustryImage}
+            alt="Industry Image"
             fill
             className="object-cover"
             priority

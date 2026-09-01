@@ -55,7 +55,7 @@ export function Header() {
           </div>
           <div>
             <span className="font-bold text-xl md:text-2xl text-brand-primary tracking-tight">
-              AAkash <span className="text-brand-secondary">AquaTech</span>
+              Aakash<span className="text-brand-secondary">HydroTech</span>
             </span>
           </div>
         </Link>

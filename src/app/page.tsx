@@ -25,7 +25,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#062B5F]/90 to-[#062B5F]/40" />
         </div>
-        
+
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight animate-in fade-in slide-in-from-bottom-8 duration-1000">
@@ -80,12 +80,12 @@ export default function Home() {
       {/* Why Choose Us */}
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <SectionHeading 
-            title="Why Choose AAkash AquaTech?" 
+          <SectionHeading
+            title="Why Choose AakashHydroTech?" 
             subtitle="Partner with industry experts for reliable, efficient, and sustainable water treatment solutions."
             centered
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
             {[
               { title: "Premium Quality", icon: Shield, desc: "ISO certified chemicals and equipment." },
@@ -109,8 +109,8 @@ export default function Home() {
       <section className="py-20">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex justify-between items-end mb-12">
-            <SectionHeading 
-              title="Our Solutions" 
+            <SectionHeading
+              title="Our Solutions"
               subtitle="Comprehensive water treatment programs for every industrial application."
               className="mb-0"
             />
@@ -118,13 +118,13 @@ export default function Home() {
               View All Solutions <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredSolutions.map((solution) => (
               <SolutionCard key={solution.id} solution={solution} />
             ))}
           </div>
-          
+
           <div className="mt-8 text-center md:hidden">
             <Link href="/solutions" className="inline-flex items-center gap-2 text-brand-primary font-medium hover:text-brand-secondary transition-colors">
               View All Solutions <ArrowRight className="w-5 h-5" />

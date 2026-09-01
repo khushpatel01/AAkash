@@ -16,7 +16,7 @@ export function Footer() {
                 <Droplet className="w-6 h-6 text-brand-secondary" />
               </div>
               <span className="font-bold text-2xl text-white tracking-tight">
-                AAkash <span className="text-brand-secondary">AquaTech</span>
+                Aakash<span className="text-brand-secondary">HydroTech</span>
               </span>
             </Link>
             <p className="mb-6 leading-relaxed">
@@ -78,14 +78,14 @@ export function Footer() {
             <h3 className="text-white text-lg font-semibold mb-6">Newsletter</h3>
             <p className="mb-4">Subscribe to our newsletter for the latest updates and technical insights.</p>
             <form className="flex flex-col gap-3" action="#">
-              <input 
-                type="email" 
-                placeholder="Enter your email" 
+              <input
+                type="email"
+                placeholder="Enter your email"
                 className="bg-white/5 border border-white/10 rounded-md px-4 py-2.5 focus:outline-none focus:border-brand-secondary text-white"
                 required
               />
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 className="bg-brand-secondary hover:bg-brand-primary text-white px-4 py-2.5 rounded-md font-medium transition-colors"
               >
                 Subscribe

@@ -6,17 +6,17 @@ import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with AAkash AquaTech for advanced water treatment solutions, chemical programs, and technical support.",
+  description: "Get in touch with AakashHydroTech for advanced water treatment solutions, chemical programs, and technical support.",
 };
 
 export default function ContactPage() {
   return (
     <div>
-      <PageHero 
-        title="Contact Us" 
+      <PageHero
+        title="Contact Us"
         description="Our technical experts are ready to help you optimize your water treatment systems."
       />
-      
+
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
@@ -26,7 +26,7 @@ export default function ContactPage() {
               <p className="text-gray-600 mb-10 text-lg">
                 Whether you need a comprehensive water treatment program, equipment consultation, or technical support, our team is here to assist you.
               </p>
-              
+
               <div className="space-y-8">
                 <div className="flex items-start gap-4">
                   <div className="bg-brand-primary/10 p-3 rounded-full text-brand-primary">
@@ -37,7 +37,7 @@ export default function ContactPage() {
                     <p className="text-gray-600">{siteConfig.contact.address}</p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="bg-brand-primary/10 p-3 rounded-full text-brand-primary">
                     <Phone className="w-6 h-6" />
@@ -49,7 +49,7 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="bg-brand-primary/10 p-3 rounded-full text-brand-primary">
                     <Mail className="w-6 h-6" />
@@ -61,7 +61,7 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
-                
+
                 <div className="flex items-start gap-4">
                   <div className="bg-brand-primary/10 p-3 rounded-full text-brand-primary">
                     <Clock className="w-6 h-6" />
@@ -73,7 +73,7 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Contact Form */}
             <div className="-mt-8 lg:-mt-32 relative z-10">
               <ContactForm />

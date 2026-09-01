@@ -6,30 +6,30 @@ import { Phone, Mail, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Request a Quote",
-  description: "Request a custom quote for AAkash AquaTech water treatment solutions and equipment.",
+  description: "Request a custom quote for AakashHydroTech water treatment solutions and equipment.",
 };
 
 export default function RequestQuotePage() {
   return (
     <div>
-      <PageHero 
-        title="Request a Quote" 
+      <PageHero
+        title="Request a Quote"
         description="Provide details about your water treatment requirements, and our technical team will prepare a customized proposal."
       />
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            
+
             {/* Information Sidebar */}
             <div className="lg:col-span-1 space-y-8">
               <div>
                 <h3 className="text-2xl font-bold text-brand-primary mb-4">Why Request a Quote?</h3>
                 <p className="text-gray-600 leading-relaxed">
-                  Industrial water treatment requires tailored solutions. A boiler system in a textile plant has different chemical needs than a cooling tower in a pharmaceutical facility. 
+                  Industrial water treatment requires tailored solutions. A boiler system in a textile plant has different chemical needs than a cooling tower in a pharmaceutical facility.
                   By providing your specific requirements, our engineers can design a program that optimizes performance and minimizes costs.
                 </p>
               </div>
-              
+
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h4 className="font-semibold text-lg text-brand-primary mb-6">Need Immediate Assistance?</h4>
                 <div className="space-y-4">

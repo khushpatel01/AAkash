@@ -1,6 +1,6 @@
-# AAkash AquaTech Corporate Website
+# AakashHydroTech Corporate Website
 
-A premium industrial corporate website for AAkash AquaTech, built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
+A premium industrial corporate website for AakashHydroTech, built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion.
 
 ## 1. Installation
 
@@ -22,8 +22,8 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
-CONTACT_EMAIL=info@aakashaquatech.com
-SMTP_FROM=noreply@aakashaquatech.com
+CONTACT_EMAIL=info@aakashhydrotech.com
+SMTP_FROM=noreply@aakashhydrotech.com
 ```
 
 ## 3. Email Configuration

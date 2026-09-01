@@ -55,7 +55,7 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     await transporter.sendMail({
       from: `"Website Enquiry" <${fromEmail}>`,
       to: contactEmail,
-      subject: `New Website Enquiry - AAkash AquaTech - ${validatedData.name}`,
+      subject: `New Website Enquiry - AakashHydroTech - ${validatedData.name}`,
       html: `
         <h2>New Enquiry from Website</h2>
         <p><strong>Name:</strong> ${validatedData.name}</p>
@@ -73,18 +73,18 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     // Send auto-response to customer
     try {
       await transporter.sendMail({
-        from: `"AAkash AquaTech" <${fromEmail}>`,
+        from: `"AakashHydroTech" <${fromEmail}>`,
         to: validatedData.email,
-        subject: "Thank You for Contacting AAkash AquaTech",
+        subject: "Thank You for Contacting AakashHydroTech",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #062B5F;">Thank You for Contacting Us</h2>
             <p>Dear ${validatedData.name},</p>
-            <p>Thank you for contacting AAkash AquaTech. Our team has received your enquiry regarding <strong>${validatedData.solution}</strong>.</p>
+            <p>Thank you for contacting AakashHydroTech. Our team has received your enquiry regarding <strong>${validatedData.solution}</strong>.</p>
             <p>One of our technical experts will review your requirements and get back to you shortly.</p>
             <br>
             <p>Best Regards,</p>
-            <p><strong>Team AAkash AquaTech</strong></p>
+            <p><strong>Team AakashHydroTech</strong></p>
             <p style="color: #666; font-size: 12px; margin-top: 20px;">This is an automated message. Please do not reply directly to this email.</p>
           </div>
         `,
@@ -97,10 +97,10 @@ export async function submitContactForm(prevState: any, formData: FormData) {
     const whatsappText = `*New Website Enquiry*\n\n*Name:* ${validatedData.name}\n*Phone:* ${validatedData.phone}\n*Solution:* ${validatedData.solution}\n*Message:* ${validatedData.message}`;
     const whatsappUrl = `https://wa.me/9106303850?text=${encodeURIComponent(whatsappText)}`;
 
-    return { 
-      success: true, 
+    return {
+      success: true,
       message: "Thank you! Your enquiry has been sent successfully. We will contact you shortly.",
-      whatsappUrl 
+      whatsappUrl
     };
   } catch (error) {
     console.error("Contact form error:", error);

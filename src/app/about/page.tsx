@@ -3,14 +3,14 @@ import { PageHero } from "@/components/ui/PageHero";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Learn about AAkash AquaTech's history, mission, and commitment to providing advanced water treatment solutions.",
+  description: "Learn about AakashHydroTech's history, mission, and commitment to providing advanced water treatment solutions.",
 };
 
 export default function AboutPage() {
   return (
     <div>
-      <PageHero 
-        title="About AAkash AquaTech" 
+      <PageHero
+        title="About AakashHydroTech" 
         description="Pioneering advanced water treatment solutions since our inception."
       />
       <section className="py-20">
@@ -18,7 +18,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto prose prose-lg text-gray-600">
             <h2>Our Story</h2>
             <p>
-              AAkash AquaTech is a premier industrial water treatment company dedicated to providing innovative and sustainable solutions...
+              AakashHydroTech is a premier industrial water treatment company dedicated to providing innovative and sustainable solutions...
             </p>
             {/* More content to be added */}
           </div>

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
 import { ContactForm } from "@/components/ui/ContactForm";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -46,6 +46,18 @@ export default function ContactPage() {
                     <h4 className="text-xl font-semibold text-brand-text mb-2">Phone</h4>
                     <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`} className="text-gray-600 hover:text-brand-secondary transition-colors">
                       {siteConfig.contact.phone}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="bg-brand-primary/10 p-3 rounded-full text-[#25D366]">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-brand-text mb-2">WhatsApp</h4>
+                    <a href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello AakashHydroTech! I'm interested in your products.")}`} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-[#25D366] transition-colors">
+                      {siteConfig.contact.whatsapp}
                     </a>
                   </div>
                 </div>

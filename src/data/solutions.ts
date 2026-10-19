@@ -1,10 +1,5 @@
 import { images } from "@/config/images";
-import boiler from "../Images/Boiler.png";
-import cooling from "../Images/Cooling Water Treatment.png";
-import RO from "../Images/RO.png"
-import Wastewater from "../Images/WasteWater.png"
-import waterTretment from "../Images/waterTretment.png"
-import ChemicalTreatment from "../Images/ChemicalTreatment.png"
+
 import { StaticImageData } from "next/image";
 
 export interface Solution {
@@ -26,7 +21,7 @@ export const solutions: Solution[] = [
     shortDescription: "Prevent scaling, corrosion, and carryover in boiler systems.",
     description: "Our comprehensive boiler water treatment programs ensure maximum efficiency and protection of your boiler assets. We provide customized solutions to prevent scaling, corrosion, and optimize energy consumption.",
     icon: "Droplet",
-    image: boiler,
+    image: "/Images/Boiler.png",
     benefits: [
       "Extends boiler life",
       "Reduces fuel consumption",
@@ -41,7 +36,7 @@ export const solutions: Solution[] = [
     shortDescription: "Control scale, corrosion, and microbiological growth.",
     description: "Effective cooling water treatment is critical for system reliability. We offer advanced chemical programs to control scale, corrosion, and microbiological fouling in open and closed cooling systems.",
     icon: "Snowflake",
-    image: cooling,
+    image: "/Images/Cooling Water Treatment.png",
     benefits: [
       "Optimizes heat transfer efficiency",
       "Reduces water consumption",
@@ -56,7 +51,7 @@ export const solutions: Solution[] = [
     shortDescription: "Maximize membrane life and permeate recovery.",
     description: "Our RO treatment chemicals, including antiscalants and cleaners, are formulated to maximize reverse osmosis membrane performance, increase recovery rates, and reduce cleaning frequency.",
     icon: "Filter",
-    image: RO,
+    image: "/Images/RO.png",
     benefits: [
       "Increases membrane lifespan",
       "Reduces energy consumption",
@@ -71,7 +66,7 @@ export const solutions: Solution[] = [
     shortDescription: "Efficient treatment for environmental compliance.",
     description: "We provide high-performance coagulants, flocculants, and biological treatments to ensure your effluent meets environmental discharge limits while optimizing treatment costs.",
     icon: "Recycle",
-    image: Wastewater,
+    image: "/Images/WasteWater.png",
     benefits: [
       "Ensures regulatory compliance",
       "Reduces sludge volume",
@@ -86,7 +81,7 @@ export const solutions: Solution[] = [
     shortDescription: "Turnkey equipment solutions and engineered systems.",
     description: "From RO plants to advanced effluent treatment systems, we design, install, and commission engineered water treatment plants tailored to your specific industrial requirements.",
     icon: "Factory",
-    image: waterTretment,
+    image: "/Images/waterTretment.png",
     benefits: [
       "Custom-engineered designs",
       "High-quality components",
@@ -101,7 +96,7 @@ export const solutions: Solution[] = [
     shortDescription: "Customized chemical solutions for complex needs.",
     description: "We develop customized specialty chemical programs designed specifically for your unique process water challenges, backed by expert technical service.",
     icon: "FlaskConical",
-    image: ChemicalTreatment,
+    image: "/Images/ChemicalTreatment.png",
     benefits: [
       "Targeted problem solving",
       "Cost-effective dosing",

@@ -8,13 +8,13 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <div className="bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col h-full">
-      <div className="relative h-48 bg-gray-50 flex items-center justify-center p-6">
+    <div className="bg-white border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300 rounded-xl overflow-hidden flex flex-col h-full group">
+      <div className="relative h-56 bg-gray-50 flex items-center justify-center overflow-hidden p-2">
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+          className="object-contain group-hover:scale-105 transition-transform duration-500"
         />
       </div>
       <div className="p-6 flex flex-col flex-1">

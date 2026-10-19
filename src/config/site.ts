@@ -4,7 +4,8 @@ export const siteConfig = {
   description: "Advanced Water Treatment Solutions for Every Industry. We deliver reliable water treatment chemicals, systems and technical solutions designed to improve efficiency, protect equipment and support sustainable water management.",
   contact: {
     email: process.env.CONTACT_EMAIL || "kpj050103@gmail.com",
-    phone: "+91 98765 43210", // Placeholder
+    phone: "+91 9106303850",
+    whatsapp: "+91 9106303850",
     address: "Shop No.3 , Opp.Animal Hospital,Brahmanwada ,Ta. Unjha, Dt. Mehsana, Gujarat, India 38410", // Placeholder
     workingHours: "Mon - Sat: 9:00 AM - 6:00 PM"
   },

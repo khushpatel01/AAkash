@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Droplet } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -49,13 +50,21 @@ export function Header() {
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="bg-brand-primary p-2 rounded-lg group-hover:bg-brand-secondary transition-colors">
-            <Droplet className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <span className="font-bold text-xl md:text-2xl text-brand-primary tracking-tight">
-              Aakash<span className="text-brand-secondary">HydroTech</span>
+        <Link href="/" className="flex items-center gap-3 group">
+          <Image
+            src="/Images/HydroTech_LOGO.png"
+            alt="HydroTech Logo"
+            width={60}
+            height={60}
+            className="h-10 md:h-12 w-auto object-contain mix-blend-multiply"
+            priority
+          />
+          <div className="flex flex-col justify-center">
+            <span className="font-extrabold text-2xl md:text-3xl tracking-tight leading-none mb-1">
+              <span className="text-brand-primary">Hydro</span><span className="text-brand-secondary">Tech</span>
+            </span>
+            <span className="text-[0.55rem] md:text-[0.6rem] tracking-[0.2em] text-brand-secondary font-semibold uppercase leading-none">
+              Water Treatment Solution
             </span>
           </div>
         </Link>

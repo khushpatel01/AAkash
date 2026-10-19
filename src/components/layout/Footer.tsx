@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/config/site";
-import { Droplet, Mail, MapPin, Phone, Globe } from "lucide-react";
+import { Droplet, Mail, MapPin, Phone, Globe, MessageCircle } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,13 +12,22 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* Company Info */}
           <div>
-            <Link href="/" className="flex items-center gap-2 mb-6 group inline-flex">
-              <div className="bg-white/10 p-2 rounded-lg">
-                <Droplet className="w-6 h-6 text-brand-secondary" />
+            <Link href="/" className="flex items-center gap-3 mb-6 group inline-flex bg-white p-3 rounded-xl">
+              <Image
+                src="/Images/HydroTech_LOGO.png"
+                alt="HydroTech Logo"
+                width={60}
+                height={60}
+                className="h-10 w-auto object-contain"
+              />
+              <div className="flex flex-col justify-center">
+                <span className="font-extrabold text-2xl tracking-tight leading-none mb-1">
+                  <span className="text-brand-primary">Hydro</span><span className="text-brand-secondary">Tech</span>
+                </span>
+                <span className="text-[0.55rem] tracking-[0.2em] text-brand-secondary font-semibold uppercase leading-none">
+                  Water Treatment Solution
+                </span>
               </div>
-              <span className="font-bold text-2xl text-white tracking-tight">
-                Aakash<span className="text-brand-secondary">HydroTech</span>
-              </span>
             </Link>
             <p className="mb-6 leading-relaxed">
               {siteConfig.tagline}
@@ -62,6 +72,12 @@ export function Footer() {
                 <Phone className="w-5 h-5 text-brand-secondary shrink-0" />
                 <a href={`tel:${siteConfig.contact.phone.replace(/[^0-9+]/g, '')}`} className="hover:text-brand-secondary transition-colors">
                   {siteConfig.contact.phone}
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <MessageCircle className="w-5 h-5 text-[#25D366] shrink-0" />
+                <a href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello AakashHydroTech! I'm interested in your products.")}`} target="_blank" rel="noopener noreferrer" className="hover:text-[#25D366] transition-colors">
+                  {siteConfig.contact.whatsapp}
                 </a>
               </li>
               <li className="flex items-center gap-3">

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowRight, PlayCircle, Shield, Droplet, Cog, CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
-import IndustryImage from "@/Images/Industry.png";
 import { solutions } from "@/data/solutions";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SolutionCard } from "@/components/ui/SolutionCard";
@@ -18,7 +17,7 @@ export default function Home() {
       <section className="relative h-[90vh] min-h-[600px] flex items-center">
         <div className="absolute inset-0 z-0">
           <Image
-            src={IndustryImage}
+            src="/Images/Industry.png"
             alt="Industry Image"
             fill
             className="object-cover"
@@ -82,7 +81,7 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <SectionHeading
-            title="Why Choose AakashHydroTech?" 
+            title="Why Choose AakashHydroTech?"
             subtitle="Partner with industry experts for reliable, efficient, and sustainable water treatment solutions."
             centered
           />

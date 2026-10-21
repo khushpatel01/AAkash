@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { PageHero } from "@/components/ui/PageHero";
-import { products } from "@/data/products";
-import { ProductCard } from "@/components/ui/ProductCard";
+import { products, productCategories } from "@/data/products";
+import { ProductFilterGrid } from "@/components/ui/ProductFilterGrid";
 
 export const metadata: Metadata = {
-  title: "Products",
-  description: "Explore our range of industrial water treatment chemicals and equipment.",
+  title: "Water Treatment Chemicals & Products",
+  description: "Specialized industrial water treatment chemicals, dosing systems, and Maxothermie® synthetic heat transfer fluids traded by Aakash Enterprise.",
 };
 
 export default function ProductsPage() {
@@ -13,15 +13,11 @@ export default function ProductsPage() {
     <div>
       <PageHero 
         title="Our Products" 
-        description="High-performance chemicals and reliable equipment for all water treatment needs."
+        description="Specialized water treatment chemicals, dosing equipment, and industrial thermic fluids."
       />
-      <section className="py-20 bg-gray-50">
+      <section className="py-8 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          <ProductFilterGrid products={products} categories={productCategories} />
         </div>
       </section>
     </div>

@@ -6,6 +6,8 @@ import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

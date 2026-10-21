@@ -13,7 +13,7 @@ export default function AboutPage() {
         title="About AakashHydroTech"
         description="Pioneering advanced water treatment solutions since our inception."
       />
-      <section className="py-20 bg-gray-50">
+      <section className="py-8 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-5xl mx-auto space-y-12">
             
@@ -27,7 +27,7 @@ export default function AboutPage() {
                   Based in Mahesana, Gujarat, we are committed to helping industries manage water resources efficiently through innovative products, technical expertise and dedicated customer support.
                 </p>
                 <p>
-                  Our product portfolio includes boiler water treatment chemicals, cooling water treatment chemicals, process water treatment chemicals, RO & membrane care chemicals, wastewater treatment chemicals and Speciality solutions.
+                  Our product portfolio includes boiler water treatment chemicals, cooling water treatment chemicals, process water treatment chemicals, RO & membrane care chemicals, wastewater treatment chemicals, and premium <strong className="text-brand-primary">Maxothermie® synthetic heat transfer fluids (thermic fluids)</strong> for industrial process heating.
                 </p>
                 <p>
                   We work closely with our clients to understand their unique requirements and deliver effective, cost-efficient and environmentally responsible water treatment programs.

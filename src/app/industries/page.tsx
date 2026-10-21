@@ -15,7 +15,7 @@ export default function IndustriesPage() {
         title="Industries We Serve" 
         description="We understand that every industry has unique water treatment challenges."
       />
-      <section className="py-20 bg-gray-50">
+      <section className="py-8 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {industries.map((industry) => (

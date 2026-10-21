@@ -13,13 +13,7 @@
 :root {
   --background: #F7FAFC;
   --foreground: #0F172A;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #062B5F;
-    --foreground: #F7FAFC;
-  }
+  color-scheme: light;
 }
 
 body {
@@ -27,6 +21,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   @apply antialiased selection:bg-brand-secondary selection:text-white;
+}
+
+/* Ensure inputs and selects are always crisp and dark regardless of system dark-mode */
+input, select, textarea {
+  color: #0F172A;
+  background-color: #FFFFFF;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #94A3B8;
+  opacity: 1;
 }
 
 /* Animations and Utilities */

@@ -16,7 +16,7 @@ export default function RequestQuotePage() {
         title="Request a Quote"
         description="Provide details about your water treatment requirements, and our technical team will prepare a customized proposal."
       />
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 md:py-14 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
@@ -65,7 +65,7 @@ export default function RequestQuotePage() {
             </div>
 
             {/* The Quote Form */}
-            <div className="lg:col-span-2 relative z-10 -mt-8 lg:-mt-32">
+            <div className="lg:col-span-2 relative z-10">
               <QuoteForm />
             </div>
 

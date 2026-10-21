@@ -17,7 +17,7 @@ export default function ContactPage() {
         description="Our technical experts are ready to help you optimize your water treatment systems."
       />
 
-      <section className="py-20 bg-gray-50">
+      <section className="py-10 md:py-14 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
             {/* Contact Information */}
@@ -87,7 +87,7 @@ export default function ContactPage() {
             </div>
 
             {/* Contact Form */}
-            <div className="-mt-8 lg:-mt-32 relative z-10">
+            <div className="relative z-10">
               <ContactForm />
             </div>
           </div>

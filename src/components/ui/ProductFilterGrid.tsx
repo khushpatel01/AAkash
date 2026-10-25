@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { ProductCard } from "@/components/ui/ProductCard";
 import type { Product } from "@/data/products";
-import { Search, Filter, MessageCircle, Flame, Droplets, X } from "lucide-react";
+import { Search, Filter, MessageCircle, Flame, Droplets, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { siteConfig } from "@/config/site";
 
 interface ProductFilterGridProps {
@@ -15,9 +15,74 @@ export function ProductFilterGrid({ products, categories }: ProductFilterGridPro
   const [selectedCategory, setSelectedCategory] = useState<string>("All Products");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const gridContainerRef = useRef<HTMLDivElement>(null);
+  const tabsContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  const handleCategorySelect = (cat: string) => {
+  // Monitor scrollability of tabs container
+  const checkScrollability = useCallback(() => {
+    const el = tabsContainerRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
+  }, []);
+
+  useEffect(() => {
+    checkScrollability();
+    const el = tabsContainerRef.current;
+    if (!el) return;
+
+    el.addEventListener("scroll", checkScrollability, { passive: true });
+    window.addEventListener("resize", checkScrollability);
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(() => checkScrollability());
+      observer.observe(el);
+    }
+
+    return () => {
+      el.removeEventListener("scroll", checkScrollability);
+      window.removeEventListener("resize", checkScrollability);
+      if (observer) observer.disconnect();
+    };
+  }, [checkScrollability, categories]);
+
+  // When selectedCategory changes, auto-center the active category in the tabs track
+  useEffect(() => {
+    if (!tabsContainerRef.current) return;
+    const activeBtn = tabsContainerRef.current.querySelector<HTMLButtonElement>(
+      `[data-category="${selectedCategory}"]`
+    );
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
+  }, [selectedCategory]);
+
+  const handleScroll = (direction: "left" | "right") => {
+    const el = tabsContainerRef.current;
+    if (!el) return;
+    const scrollAmount = Math.max(el.clientWidth * 0.65, 200);
+    el.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const handleCategorySelect = (cat: string, e?: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedCategory(cat);
+    if (e?.currentTarget) {
+      e.currentTarget.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+        block: "nearest",
+      });
+    }
     if (gridContainerRef.current) {
       const topPos = gridContainerRef.current.getBoundingClientRect().top + window.scrollY - 90;
       if (window.scrollY > topPos) {
@@ -62,70 +127,130 @@ export function ProductFilterGrid({ products, categories }: ProductFilterGridPro
 
   return (
     <div ref={gridContainerRef} className="space-y-8">
-      {/* Category Pills & Search Bar */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-200/80 shadow-sm">
-        
-        {/* Categories */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-          <div className="flex items-center gap-1.5 text-xs text-gray-400 font-semibold uppercase tracking-wider mr-1 hidden sm:flex shrink-0">
-            <Filter className="w-3.5 h-3.5 text-brand-secondary" />
-            <span>Filter:</span>
+      {/* Category Pills & Search Bar Container */}
+      <div className="bg-white p-3 sm:p-4 rounded-xl border border-gray-200/80 shadow-sm transition-all">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+          
+          {/* Categories Filter Track Wrapper */}
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+            
+            {/* Filter Label */}
+            <div className="flex items-center gap-1.5 text-xs text-gray-500 font-semibold uppercase tracking-wider shrink-0 select-none">
+              <Filter className="w-3.5 h-3.5 text-brand-secondary shrink-0" />
+              <span className="hidden sm:inline">Filter:</span>
+            </div>
+
+            {/* Scrollable Tabs Container with fade edges & scroll buttons */}
+            <div className="relative min-w-0 flex-1 flex items-center">
+              
+              {/* Left Scroll Button */}
+              {canScrollLeft && (
+                <button
+                  type="button"
+                  onClick={() => handleScroll("left")}
+                  aria-label="Scroll categories left"
+                  className="absolute left-0 z-20 w-7 h-7 rounded-full bg-white/95 border border-gray-200/90 shadow-md flex items-center justify-center text-gray-600 hover:text-brand-primary hover:bg-white active:scale-95 transition-all cursor-pointer backdrop-blur-sm -translate-x-1"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+              )}
+
+              {/* Left Fade Gradient */}
+              <div
+                className={`pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white via-white/90 to-transparent z-10 transition-opacity duration-200 ${
+                  canScrollLeft ? "opacity-100" : "opacity-0"
+                }`}
+              />
+
+              {/* Scrollable Tabs */}
+              <div
+                ref={tabsContainerRef}
+                className="flex items-center gap-2 overflow-x-auto scrollbar-none py-1 px-1 scroll-smooth touch-pan-x w-full"
+              >
+                {categories.map((cat) => {
+                  const isSelected = selectedCategory === cat;
+                  const isTrading = cat.includes("Thermic Fluids");
+
+                  return (
+                    <button
+                      key={cat}
+                      data-category={cat}
+                      type="button"
+                      onClick={(e) => handleCategorySelect(cat, e)}
+                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 shrink-0 select-none cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-secondary focus-visible:ring-offset-1 ${
+                        isSelected
+                          ? isTrading
+                            ? "bg-amber-600 text-white shadow-sm ring-1 ring-amber-700/20"
+                            : "bg-brand-primary text-white shadow-sm ring-1 ring-brand-primary/20"
+                          : isTrading
+                          ? "bg-amber-50 text-amber-800 hover:bg-amber-100/90 border border-amber-300/80 hover:border-amber-400"
+                          : "bg-gray-100 text-gray-700 hover:bg-gray-200/90 border border-transparent hover:border-gray-300/60"
+                      }`}
+                    >
+                      {isTrading ? (
+                        <Flame className={`w-3 h-3 shrink-0 ${isSelected ? "text-amber-200" : "text-amber-600"}`} />
+                      ) : (
+                        <Droplets className={`w-3 h-3 shrink-0 ${isSelected ? "text-cyan-300" : "text-brand-secondary"}`} />
+                      )}
+                      <span>{cat}</span>
+                      {isTrading && (
+                        <span
+                          className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold transition-colors ${
+                            isSelected ? "bg-white/20 text-white" : "bg-amber-200 text-amber-900"
+                          }`}
+                        >
+                          {tradingProducts.length}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right Fade Gradient */}
+              <div
+                className={`pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white via-white/90 to-transparent z-10 transition-opacity duration-200 ${
+                  canScrollRight ? "opacity-100" : "opacity-0"
+                }`}
+              />
+
+              {/* Right Scroll Button */}
+              {canScrollRight && (
+                <button
+                  type="button"
+                  onClick={() => handleScroll("right")}
+                  aria-label="Scroll categories right"
+                  className="absolute right-0 z-20 w-7 h-7 rounded-full bg-white/95 border border-gray-200/90 shadow-md flex items-center justify-center text-gray-600 hover:text-brand-primary hover:bg-white active:scale-95 transition-all cursor-pointer backdrop-blur-sm translate-x-1"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              )}
+
+            </div>
           </div>
 
-          {categories.map((cat) => {
-            const isSelected = selectedCategory === cat;
-            const isTrading = cat.includes("Thermic Fluids");
-
-            return (
+          {/* Search Input */}
+          <div className="relative w-full lg:w-64 xl:w-72 shrink-0">
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search chemicals, oils or applications..."
+              className="w-full pl-9 pr-8 py-2 text-xs text-gray-900 placeholder:text-gray-400 bg-gray-50/70 hover:bg-white focus:bg-white border border-gray-200 hover:border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary focus:border-brand-secondary transition-all"
+            />
+            {searchQuery && (
               <button
-                key={cat}
-                onClick={() => handleCategorySelect(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
-                  isSelected
-                    ? isTrading
-                      ? "bg-amber-600 text-white shadow-sm"
-                      : "bg-brand-primary text-white shadow-sm"
-                    : isTrading
-                    ? "bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-300/80"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search query"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-0.5 rounded-full hover:bg-gray-100 transition-colors"
               >
-                {isTrading ? (
-                  <Flame className={`w-3 h-3 ${isSelected ? "text-amber-200" : "text-amber-600"}`} />
-                ) : (
-                  <Droplets className={`w-3 h-3 ${isSelected ? "text-cyan-300" : "text-brand-secondary"}`} />
-                )}
-                <span>{cat}</span>
-                {isTrading && (
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
-                    isSelected ? "bg-white/20 text-white" : "bg-amber-200 text-amber-900"
-                  }`}>
-                    {tradingProducts.length}
-                  </span>
-                )}
+                <X className="w-3.5 h-3.5" />
               </button>
-            );
-          })}
-        </div>
+            )}
+          </div>
 
-        {/* Search Input */}
-        <div className="relative min-w-[240px] lg:w-72">
-          <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search chemicals, oils or applications..."
-            className="w-full pl-9 pr-8 py-2 text-xs text-gray-900 placeholder:text-gray-400 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-secondary transition-all"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-            >
-              <X className="w-3.5 h-3.5" />
-            </button>
-          )}
         </div>
       </div>
 

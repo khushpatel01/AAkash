@@ -9,9 +9,9 @@ export function Footer() {
   return (
     <footer className="bg-[#041a3a] text-gray-300 pt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Company Info */}
-          <div>
+          <div className="lg:pr-4">
             <Link href="/" className="flex items-center gap-3 mb-6 group inline-flex bg-white p-3 rounded-xl">
               <Image
                 src="/Images/HydroTech_LOGO.png"
@@ -48,7 +48,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="md:pl-4">
             <h3 className="text-white text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               <li><Link href="/about" className="hover:text-brand-secondary transition-colors">About Us</Link></li>
@@ -87,26 +87,6 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-white text-lg font-semibold mb-6">Newsletter</h3>
-            <p className="mb-4">Subscribe to our newsletter for the latest updates and technical insights.</p>
-            <form className="flex flex-col gap-3" action="#">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-white/5 border border-white/10 rounded-md px-4 py-2.5 focus:outline-none focus:border-brand-secondary text-white placeholder:text-gray-400"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-brand-secondary hover:bg-brand-primary text-white px-4 py-2.5 rounded-md font-medium transition-colors"
-              >
-                Subscribe
-              </button>
-            </form>
           </div>
         </div>
 

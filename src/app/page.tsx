@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, PlayCircle, Shield, Droplet, Cog, CheckCircle2, MessageCircle } from "lucide-react";
+import { ArrowRight, Shield, Droplet, Cog, CheckCircle2, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
 import { solutions } from "@/data/solutions";
@@ -46,13 +46,6 @@ export default function Home() {
                 className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-md font-bold transition-colors text-lg flex items-center gap-2"
               >
                 Explore Solutions
-              </Link>
-              <Link
-                href="/videos"
-                className="text-white hover:text-brand-secondary px-6 py-4 rounded-md font-medium transition-colors text-lg flex items-center gap-2"
-              >
-                <PlayCircle className="w-6 h-6" />
-                Watch Our Solutions
               </Link>
             </div>
           </div>

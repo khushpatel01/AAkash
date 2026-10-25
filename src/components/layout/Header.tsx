@@ -124,6 +124,7 @@ export function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
                     "px-4 py-3 rounded-md text-base font-medium transition-colors hover:bg-gray-50",
                     pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))

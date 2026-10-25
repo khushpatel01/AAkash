@@ -62,7 +62,7 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-12 bg-brand-primary text-white">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-white/10">
+          <div className="grid grid-cols-2 max-w-2xl mx-auto gap-8 divide-x divide-white/10">
             {siteConfig.stats.map((stat, index) => (
               <div key={index} className="text-center px-4">
                 <div className="text-4xl md:text-5xl font-bold text-brand-secondary mb-2">

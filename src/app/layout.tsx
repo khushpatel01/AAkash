@@ -5,8 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
-
-
+import { ScrollToTop } from "@/components/common/ScrollToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body className={`${inter.className} min-h-screen flex flex-col bg-brand-bg text-brand-text`}>
+        <ScrollToTop />
         <Header />
         <main className="flex-1 pt-[72px]">
           {children}

@@ -17,8 +17,6 @@ export const siteConfig = {
   websiteUrl: "https://aakashhydrotech.com",
   stats: [
     { label: "Years of Experience", value: "15+" },
-    { label: "Clients Served", value: "500+" },
-    { label: "Projects / Installations", value: "1000+" },
     { label: "Technical Support", value: "24/7" }
   ]
 };

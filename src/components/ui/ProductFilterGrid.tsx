@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { ProductCard } from "@/components/ui/ProductCard";
 import type { Product } from "@/data/products";
 import { Search, Filter, MessageCircle, Flame, Droplets, X } from "lucide-react";
@@ -14,6 +14,17 @@ interface ProductFilterGridProps {
 export function ProductFilterGrid({ products, categories }: ProductFilterGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("All Products");
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+
+  const handleCategorySelect = (cat: string) => {
+    setSelectedCategory(cat);
+    if (gridContainerRef.current) {
+      const topPos = gridContainerRef.current.getBoundingClientRect().top + window.scrollY - 90;
+      if (window.scrollY > topPos) {
+        window.scrollTo({ top: topPos, behavior: "smooth" });
+      }
+    }
+  };
 
   const whatsappPhone = siteConfig.contact.whatsapp.replace(/[^0-9]/g, '');
   const thermicFluidWhatsappUrl = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(
@@ -50,7 +61,7 @@ export function ProductFilterGrid({ products, categories }: ProductFilterGridPro
   const showSeparatedSections = selectedCategory === "All Products" && searchQuery.trim() === "";
 
   return (
-    <div className="space-y-8">
+    <div ref={gridContainerRef} className="space-y-8">
       {/* Category Pills & Search Bar */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-white p-4 rounded-xl border border-gray-200/80 shadow-sm">
         
@@ -68,7 +79,7 @@ export function ProductFilterGrid({ products, categories }: ProductFilterGridPro
             return (
               <button
                 key={cat}
-                onClick={() => setSelectedCategory(cat)}
+                onClick={() => handleCategorySelect(cat)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
                   isSelected
                     ? isTrading

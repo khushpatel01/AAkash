@@ -3,7 +3,7 @@ export const siteConfig = {
   tagline: "Pure Water. Better Tomorrow.",
   description: "Advanced Water Treatment Solutions for Every Industry. We deliver reliable water treatment chemicals, systems and technical solutions designed to improve efficiency, protect equipment and support sustainable water management.",
   contact: {
-    email: process.env.CONTACT_EMAIL || "aakashhydrotech.office@gmail.com",
+    email: process.env.CONTACT_EMAIL || "aakashenterprise.office@gmail.com",
     phone: "+91 9909053121",
     whatsapp: "+91 9909053121",
     address: "Shop No.3 , Opp.Animal Hospital,Brahmanwada ,Ta. Unjha, Dt. Mehsana, Gujarat, India 38410", // Placeholder

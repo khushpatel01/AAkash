@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { submitContactForm } from "@/app/actions/contact";
-import { Loader2, CheckCircle2, AlertCircle, MessageCircle, Send } from "lucide-react";
+import { CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -42,8 +42,6 @@ export function ContactForm() {
     success: boolean; 
     message: string; 
     whatsappUrl?: string;
-    emailSent?: boolean;
-    emailStatusNote?: string;
   } | null>(null);
 
   const whatsappPhone = siteConfig.contact.whatsapp.replace(/[^0-9]/g, '');
@@ -58,15 +56,21 @@ export function ContactForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const currentValues = watch();
-
-  const handleDirectWhatsApp = () => {
-    const text = `*Website Enquiry*\n\n*Name:* ${currentValues.name || "Customer"}\n*Company:* ${currentValues.company || "N/A"}\n*Phone:* ${currentValues.phone || "N/A"}\n*Solution:* ${currentValues.solution || "General Enquiry"}\n*Message:* ${currentValues.message || "I would like to inquire about your products."}`;
-    window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(text)}`, "_blank");
-  };
-
   const onSubmit = (data: FormData) => {
-    setResult(null);
+    // Generate WhatsApp text
+    const text = `*New Website Enquiry*\n\n*Name:* ${data.name}\n*Company:* ${data.company || "N/A"}\n*Phone:* ${data.phone}\n*Email:* ${data.email}\n*Location:* ${[data.city, data.state].filter(Boolean).join(", ") || "N/A"}\n*Solution:* ${data.solution}\n*Message:* ${data.message}`;
+    const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(text)}`;
+    
+    // Open WhatsApp directly without popup blocker
+    window.open(url, "_blank");
+
+    setResult({
+      success: true,
+      message: "Opening WhatsApp with your enquiry details...",
+      whatsappUrl: url,
+    });
+
+    // In background, log enquiry locally so records are preserved
     startTransition(async () => {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -74,34 +78,15 @@ export function ContactForm() {
           formData.append(key, String(value));
         }
       });
-      
-      const response = await submitContactForm(null, formData);
-      setResult({ 
-        success: response.success, 
-        message: response.message, 
-        whatsappUrl: response.whatsappUrl,
-        emailSent: response.emailSent,
-        emailStatusNote: (response as any).emailStatusNote
-      });
-
-      if (response.success) {
-        reset();
-        if (response.whatsappUrl) {
-          try {
-            window.open(response.whatsappUrl, "_blank");
-          } catch {
-            // Handled by the fallback button in result alert
-          }
-        }
-      }
+      await submitContactForm(null, formData);
     });
   };
 
   return (
     <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100">
-      <h3 className="text-2xl font-bold text-brand-primary mb-2">Send an Enquiry</h3>
+      <h3 className="text-2xl font-bold text-brand-primary mb-2">Connect With Us</h3>
       <p className="text-xs text-gray-500 mb-6">
-        Fill out the form below and our engineering team will get back to you shortly.
+        Fill out your requirements below to directly chat with our technical team on WhatsApp.
       </p>
       
       {result && (
@@ -116,11 +101,6 @@ export function ContactForm() {
           )}
           <div className="flex-1">
             <p className="font-semibold text-sm">{result.message}</p>
-            {result.success && !result.emailSent && (
-              <p className="text-xs text-amber-700 mt-1">
-                Note: Email notification skipped (SMTP credentials not yet added in .env.local). Enquiry has been saved to records and forwarded via WhatsApp.
-              </p>
-            )}
             {result.whatsappUrl && (
               <div className="mt-3">
                 <a
@@ -130,7 +110,7 @@ export function ContactForm() {
                   className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Click here to Open WhatsApp Message</span>
+                  <span>Click here if WhatsApp didn't open</span>
                 </a>
               </div>
             )}
@@ -237,33 +217,14 @@ export function ContactForm() {
           {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message.message}</p>}
         </div>
 
-        {/* Dual Actions: Send Enquiry or Instant WhatsApp */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        {/* Direct Action: Send via WhatsApp */}
+        <div className="pt-2">
           <button
             type="submit"
-            disabled={isPending}
-            className="flex-1 bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer disabled:opacity-50"
+            className="w-full bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-3.5 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer text-base"
           >
-            {isPending ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Sending...</span>
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                <span>Send Enquiry</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleDirectWhatsApp}
-            className="flex-1 bg-[#25D366] hover:bg-[#1da851] text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>Chat on WhatsApp</span>
+            <MessageCircle className="w-5 h-5" />
+            <span>Send via WhatsApp</span>
           </button>
         </div>
       </form>

@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { MessageCircle, Send, Thermometer } from "lucide-react";
+import { MessageCircle, Thermometer } from "lucide-react";
 import type { Product } from "@/data/products";
 import { siteConfig } from "@/config/site";
 
@@ -87,25 +86,15 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Action Buttons */}
         <div className="flex flex-col gap-2 mt-auto pt-3 border-t border-gray-100">
-          <div className="flex items-center gap-2">
-            <Link
-              href={`/request-quote?product=${encodeURIComponent(product.name)}`}
-              className="flex-1 text-center bg-brand-primary hover:bg-brand-secondary text-white px-3 py-2 rounded-md font-semibold transition-colors text-xs flex items-center justify-center gap-1.5 shadow-sm"
-            >
-              <Send className="w-3.5 h-3.5" />
-              <span>Get Quote</span>
-            </Link>
-
-            <a
-              href={`https://wa.me/${whatsappPhone}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 text-center bg-[#25D366] hover:bg-[#1da851] text-white px-3 py-2 rounded-md font-semibold transition-colors text-xs flex items-center justify-center gap-1.5 shadow-sm"
-            >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp</span>
-            </a>
-          </div>
+          <a
+            href={`https://wa.me/${whatsappPhone}?text=${whatsappMessage}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full text-center bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2.5 rounded-lg font-semibold transition-colors text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm"
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>Inquire on WhatsApp</span>
+          </a>
         </div>
 
       </div>

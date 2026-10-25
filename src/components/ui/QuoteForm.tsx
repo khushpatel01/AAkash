@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { submitQuoteForm } from "@/app/actions/quote";
-import { Loader2, CheckCircle2, AlertCircle, MessageCircle, Send } from "lucide-react";
+import { CheckCircle2, AlertCircle, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 
@@ -44,8 +44,6 @@ export function QuoteForm() {
     success: boolean; 
     message: string; 
     whatsappUrl?: string;
-    emailSent?: boolean;
-    emailStatusNote?: string;
   } | null>(null);
 
   const whatsappPhone = siteConfig.contact.whatsapp.replace(/[^0-9]/g, '');
@@ -60,15 +58,18 @@ export function QuoteForm() {
     resolver: zodResolver(formSchema),
   });
 
-  const currentValues = watch();
-
-  const handleDirectWhatsApp = () => {
-    const text = `*Website Quote Request*\n\n*Name:* ${currentValues.name || "Customer"}\n*Company:* ${currentValues.company || "N/A"}\n*Phone:* ${currentValues.phone || "N/A"}\n*Solution:* ${currentValues.solution || "General Quote"}\n*Capacity:* ${currentValues.capacity || "N/A"}\n*Problem:* ${currentValues.problem || "N/A"}\n*Message:* ${currentValues.message || "Please provide a customized proposal."}`;
-    window.open(`https://wa.me/${whatsappPhone}?text=${encodeURIComponent(text)}`, "_blank");
-  };
-
   const onSubmit = (data: FormData) => {
-    setResult(null);
+    const text = `*New Quote Request*\n\n*Name:* ${data.name}\n*Company:* ${data.company}\n*Phone:* ${data.phone}\n*Email:* ${data.email}\n*City:* ${data.city || "N/A"}\n*Solution:* ${data.solution}\n*Capacity:* ${data.capacity || "N/A"}\n*Problem:* ${data.problem || "N/A"}\n*Message:* ${data.message || "N/A"}`;
+    const url = `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(text)}`;
+    
+    window.open(url, "_blank");
+
+    setResult({
+      success: true,
+      message: "Opening WhatsApp with your quote request...",
+      whatsappUrl: url,
+    });
+
     startTransition(async () => {
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
@@ -76,26 +77,7 @@ export function QuoteForm() {
           formData.append(key, String(value));
         }
       });
-      
-      const response = await submitQuoteForm(null, formData);
-      setResult({ 
-        success: response.success, 
-        message: response.message, 
-        whatsappUrl: response.whatsappUrl,
-        emailSent: response.emailSent,
-        emailStatusNote: (response as any).emailStatusNote
-      });
-
-      if (response.success) {
-        reset();
-        if (response.whatsappUrl) {
-          try {
-            window.open(response.whatsappUrl, "_blank");
-          } catch {
-            // Handled by the fallback button in result alert
-          }
-        }
-      }
+      await submitQuoteForm(null, formData);
     });
   };
 
@@ -103,7 +85,7 @@ export function QuoteForm() {
     <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-100">
       <h3 className="text-2xl font-bold text-brand-primary mb-2">Request a Proposal</h3>
       <p className="text-xs text-gray-500 mb-6">
-        Provide details about your water treatment or heating system requirements for a custom quotation.
+        Provide details about your water treatment or heating system requirements for a custom quotation via WhatsApp.
       </p>
       
       {result && (
@@ -118,11 +100,6 @@ export function QuoteForm() {
           )}
           <div className="flex-1">
             <p className="font-semibold text-sm">{result.message}</p>
-            {result.success && !result.emailSent && (
-              <p className="text-xs text-amber-700 mt-1">
-                Note: Email notification skipped (SMTP credentials not yet added in .env.local). Enquiry has been saved to records and forwarded via WhatsApp.
-              </p>
-            )}
             {result.whatsappUrl && (
               <div className="mt-3">
                 <a
@@ -132,7 +109,7 @@ export function QuoteForm() {
                   className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Click here to Open WhatsApp Message</span>
+                  <span>Click here if WhatsApp didn't open</span>
                 </a>
               </div>
             )}
@@ -260,31 +237,13 @@ export function QuoteForm() {
         </div>
 
         {/* Dual Actions: Submit Proposal or Instant WhatsApp */}
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
+        {/* Direct Action: Request via WhatsApp */}
+        <div className="pt-2">
           <button
             type="submit"
-            disabled={isPending}
-            className="flex-1 bg-brand-primary hover:bg-brand-secondary text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer disabled:opacity-50"
+            className="w-full bg-[#25D366] hover:bg-[#1da851] text-white font-bold py-3.5 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-md cursor-pointer text-base"
           >
-            {isPending ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Submitting Request...</span>
-              </>
-            ) : (
-              <>
-                <Send className="w-4 h-4" />
-                <span>Submit Request</span>
-              </>
-            )}
-          </button>
-
-          <button
-            type="button"
-            onClick={handleDirectWhatsApp}
-            className="flex-1 bg-[#25D366] hover:bg-[#1da851] text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm cursor-pointer"
-          >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle className="w-5 h-5" />
             <span>Request via WhatsApp</span>
           </button>
         </div>

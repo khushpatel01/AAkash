@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, PlayCircle, Shield, Droplet, Cog, CheckCircle2 } from "lucide-react";
+import { ArrowRight, PlayCircle, Shield, Droplet, Cog, CheckCircle2, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { images } from "@/config/images";
 import { solutions } from "@/data/solutions";
@@ -36,10 +36,10 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300 fill-mode-both">
               <Link
-                href="/request-quote"
+                href="/contact"
                 className="bg-brand-secondary hover:bg-white text-white hover:text-brand-primary px-8 py-4 rounded-md font-bold transition-colors text-lg"
               >
-                Get a Quote
+                Contact Us
               </Link>
               <Link
                 href="/solutions"
@@ -147,9 +147,15 @@ export default function Home() {
             <Link href="/contact" className="bg-brand-secondary hover:bg-white text-white hover:text-brand-primary px-8 py-4 rounded-md font-bold transition-colors text-lg">
               Contact Us Now
             </Link>
-            <Link href="/request-quote" className="bg-transparent border border-white text-white hover:bg-white/10 px-8 py-4 rounded-md font-bold transition-colors text-lg">
-              Request a Quote
-            </Link>
+            <a
+              href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Aakash Enterprise! I would like to inquire about your products.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#25D366] hover:bg-[#1da851] text-white px-8 py-4 rounded-md font-bold transition-colors text-lg inline-flex items-center justify-center gap-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>Chat on WhatsApp</span>
+            </a>
           </div>
         </div>
       </section>

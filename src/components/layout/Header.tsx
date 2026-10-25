@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X, Droplet } from "lucide-react";
+import { Menu, X, Droplet, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
@@ -89,12 +89,15 @@ export function Header() {
 
         {/* CTA Button */}
         <div className="hidden lg:block">
-          <Link
-            href="/request-quote"
-            className="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2.5 rounded-md font-medium transition-colors"
+          <a
+            href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Aakash Enterprise! I am interested in your products.")}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#25D366] hover:bg-[#1da851] text-white px-5 py-2 rounded-full font-semibold transition-colors text-xs flex items-center gap-1.5 shadow-sm"
           >
-            Get a Quote
-          </Link>
+            <MessageCircle className="w-4 h-4" />
+            <span>WhatsApp</span>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -132,12 +135,15 @@ export function Header() {
                 </Link>
               ))}
               <div className="pt-4 pb-2">
-                <Link
-                  href="/request-quote"
-                  className="block w-full text-center bg-brand-primary hover:bg-brand-secondary text-white px-6 py-3 rounded-md font-medium transition-colors"
+                <a
+                  href={`https://wa.me/${siteConfig.contact.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hello Aakash Enterprise! I am interested in your products.")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full text-center bg-[#25D366] hover:bg-[#1da851] text-white px-6 py-3 rounded-md font-semibold transition-colors"
                 >
-                  Get a Quote
-                </Link>
+                  <MessageCircle className="w-5 h-5" />
+                  <span>Chat on WhatsApp</span>
+                </a>
               </div>
             </nav>
           </motion.div>

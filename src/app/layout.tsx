@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
+import logo from "../../public/logo.jpg";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,6 +16,20 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`
   },
   description: siteConfig.description,
+  icons: {
+    icon: logo.src,
+    apple: logo.src,
+  },
+  openGraph: {
+    title: `${siteConfig.name} - ${siteConfig.tagline}`,
+    description: siteConfig.description,
+    images: [
+      {
+        url: logo.src,
+        alt: `${siteConfig.name} Logo`,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

@@ -34,6 +34,7 @@ export function Footer() {
               <br />
               {siteConfig.description.split('.')[0]}.
             </p>
+            {/* Social Links commented out
             <div className="flex gap-4">
               <a href={siteConfig.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-brand-secondary p-2 rounded-full transition-colors text-white">
                 <Globe className="w-5 h-5" />
@@ -45,6 +46,7 @@ export function Footer() {
                 <Globe className="w-5 h-5" />
               </a>
             </div>
+            */}
           </div>
 
           {/* Quick Links */}

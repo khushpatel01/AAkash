@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { siteConfig } from "@/config/site";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
-import logo from "../../public/logo.jpg";
+import faviconIcon from "../../public/hydroTech_LOGO.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +17,19 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   icons: {
-    icon: logo.src,
-    apple: logo.src,
+    icon: [
+      { url: faviconIcon.src, type: "image/png" },
+      { url: "/hydroTech_LOGO.png", type: "image/png" }
+    ],
+    shortcut: "/hydroTech_LOGO.png",
+    apple: "/hydroTech_LOGO.png",
   },
   openGraph: {
     title: `${siteConfig.name} - ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [
       {
-        url: logo.src,
+        url: "/logo.jpg",
         alt: `${siteConfig.name} Logo`,
       },
     ],
